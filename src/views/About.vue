@@ -14,8 +14,16 @@
       </ul>
 
       <div v-for="variant in variants" :key="variant.varientsId">
-        <p>{{ variant.variantColor }}</p>
+        <p @mouseover="updateProduct(variant.variantImage)">
+          {{ variant.variantColor }}
+        </p>
       </div>
+    </div>
+
+    <button v-on:click="addToCart">Add to Cart</button>
+
+    <div class="cart">
+      <p>Cart({{ cart }})</p>
     </div>
   </div>
 </template>
@@ -31,13 +39,24 @@ export default {
       variants: [
         {
           variantId: 2234,
-          variantColor: 'green'
+          variantColor: 'green',
+          variantImage: ''
         },
         {
           variantId: 2235,
-          variantColor: 'blue'
+          variantColor: 'blue',
+          variantImage: ''
         }
-      ]
+      ],
+      cart: 0
+    }
+  },
+  methods: {
+    addToCart() {
+      this.cart += 1
+    },
+    updateProduct(variantImage) {
+      this.image = variantImage
     }
   }
 }
