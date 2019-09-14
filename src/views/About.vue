@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <button v-on:click="addToCart">Add to Cart</button>
+    <button v-on:click="addToCart">Add To Cart</button>
 
     <div class="cart">
       <p>Cart({{ cart }})</p>
