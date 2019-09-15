@@ -32,11 +32,29 @@
     >
       Add to Cart
     </button>
+
+    <div>
+      <h2>Reviews</h2>
+      <p v-if="!reviews.length">There are no reviews yet.</p>
+      <ul>
+        <li v-for="(review, index) in reviews" :key="index">
+          <p>{{ review.name }}</p>
+          <p>{{ review.review }}</p>
+          <p>{{ review.rating }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <ProductReview @product-submitted="addReview" />
   </div>
 </template>
 
 <script>
+import ProductReview from './productReview'
 export default {
+  components: {
+    ProductReview
+  },
   props: {
     premium: {
       type: Boolean,
@@ -62,7 +80,8 @@ export default {
           variantImage: '',
           variantQuantity: 0
         }
-      ]
+      ],
+      reviews: []
     }
   },
   methods: {
@@ -71,7 +90,11 @@ export default {
     },
     updateProduct(index) {
       this.selectedVariant = index
-      console.log(index)
+      // console.log(index)
+    },
+    addReview(productReview) {
+      this.reviews.push(productReview)
+      console.log(productReview)
     }
   },
   computed: {
