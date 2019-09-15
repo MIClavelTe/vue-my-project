@@ -5,7 +5,7 @@
     </div>
 
     <div class="product-info">
-      <h1>{{ product }}</h1>
+      <h1>{{ title }}</h1>
       <p v-if="inStock">In Stock</p>
       <p v-else>Out of Stock</p>
 
@@ -14,11 +14,11 @@
       </ul>
 
       <div
-        v-for="variant in variants"
+        v-for="(variant, index) in variants"
         :key="variant.varientsId"
         class="color-box"
         :style="{ color: variant.variantColor }"
-        @mouseover="updateProduct(variant.variantImage)"
+        @mouseover="updateProduct(index)"
       >
         <p>{{ variant.variantColor }}</p>
       </div>
@@ -42,20 +42,22 @@
 export default {
   data() {
     return {
+      brand: 'Vue Mastery',
       product: 'Socks',
-      image: '',
-      inStock: true,
+      selectedVariant: 0,
       details: ['80% cotton', '20% polyester', 'Gender-neutral'],
       variants: [
         {
           variantId: 2234,
           variantColor: 'green',
-          variantImage: ''
+          variantImage: '',
+          variantQuantity: 10
         },
         {
           variantId: 2235,
           variantColor: 'blue',
-          variantImage: ''
+          variantImage: '',
+          variantQuantity: 0
         }
       ],
       cart: 0
@@ -65,8 +67,20 @@ export default {
     addToCart() {
       this.cart += 1
     },
-    updateProduct(variantImage) {
-      this.image = variantImage
+    updateProduct(index) {
+      this.selectedVariant = index
+      console.log(index)
+    }
+  },
+  computed: {
+    title() {
+      return this.brand + '' + this.product
+    },
+    image() {
+      return this.variants[this.selectedVariant].variantImage
+    },
+    inStock() {
+      return this.variants[this.selectedVariant].variantQuantity
     }
   }
 }
