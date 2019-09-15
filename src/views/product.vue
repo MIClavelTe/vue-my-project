@@ -32,10 +32,6 @@
     >
       Add to Cart
     </button>
-
-    <div class="cart">
-      <p>Cart({{ cart }})</p>
-    </div>
   </div>
 </template>
 
@@ -66,13 +62,12 @@ export default {
           variantImage: '',
           variantQuantity: 0
         }
-      ],
-      cart: 0
+      ]
     }
   },
   methods: {
     addToCart() {
-      this.cart += 1
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
     },
     updateProduct(index) {
       this.selectedVariant = index
@@ -81,7 +76,7 @@ export default {
   },
   computed: {
     title() {
-      return this.brand + '' + this.product
+      return this.brand + ' ' + this.product
     },
     image() {
       return this.variants[this.selectedVariant].variantImage

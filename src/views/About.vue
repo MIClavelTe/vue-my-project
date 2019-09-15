@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Product :premium="premium" />
+    <div class="cart">
+      <p>Cart({{ cart.length }})</p>
+    </div>
+
+    <Product :premium="premium" @add-to-cart="updateCart" />
   </div>
 </template>
 
@@ -12,7 +16,13 @@ export default {
   },
   data() {
     return {
-      premium: true
+      premium: true,
+      cart: []
+    }
+  },
+  methods: {
+    updateCart(id) {
+      this.cart.push(id)
     }
   }
 }
