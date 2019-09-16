@@ -1,11 +1,11 @@
 <template>
   <form class="review-form" @submit.prevent="onSubmit">
-    <p v-if="errors.length">
-      <b>Please correct the following error(s):</b>
+    <div v-if="errors.length">
+      <p>Please correct the following error(s):</p>
       <ul>
         <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
       </ul>
-    </p>
+    </div>
 
     <p>
       <label for="name">Name:</label>
