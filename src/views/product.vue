@@ -33,27 +33,16 @@
       Add to Cart
     </button>
 
-    <div>
-      <h2>Reviews</h2>
-      <p v-if="!reviews.length">There are no reviews yet.</p>
-      <ul>
-        <li v-for="(review, index) in reviews" :key="index">
-          <p>{{ review.name }}</p>
-          <p>{{ review.review }}</p>
-          <p>{{ review.rating }}</p>
-        </li>
-      </ul>
-    </div>
-
-    <ProductReview @product-submitted="addReview" />
+    <ProductTabs :reviews="reviews" />
   </div>
 </template>
 
 <script>
-import ProductReview from './productReview'
+import ProductTabs from './productTabs'
+import eventBus from '../eventBus'
 export default {
   components: {
-    ProductReview
+    ProductTabs
   },
   props: {
     premium: {
@@ -91,10 +80,6 @@ export default {
     updateProduct(index) {
       this.selectedVariant = index
       // console.log(index)
-    },
-    addReview(productReview) {
-      this.reviews.push(productReview)
-      console.log(productReview)
     }
   },
   computed: {
@@ -113,6 +98,11 @@ export default {
       }
       return 2.99
     }
+  },
+  mounted() {
+    eventBus.$on('review-submitted', productReview => {
+      this.reviews.push(productReview)
+    })
   }
 }
 </script>
